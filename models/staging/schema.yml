@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw_flights # Tên tự đặt cho nguồn
+    database: FLIGHT_TRACKER_DB
+    schema: raw
+    tables:
+      - name: flights_raw
+models:
+  - name: stg_flights # Tên file model (không có .sql)
+    description: "Bảng staging làm sạch dữ liệu chuyến bay thô. Mỗi dòng là trạng thái của một chuyến bay."
+    columns:
+      - name: icao24 # Tên cột cần kiểm tra
+        description: "Mã định danh duy nhất của máy bay."
+        tests:
+          - unique # Đảm bảo mã này là duy nhất
+          - not_null # Đảm bảo mã này không bị trống
